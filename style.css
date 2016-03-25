@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+}
+.aqi-chart-wrap {
+    height: 500px;
+    border: 2px sienna solid;
+}
+.box {
+    position: relative;
+    float: left;
+    height: 100%;
+    /*border: 1px solid red;*/
+}
+
+.day {
+    width: 10px;
+}
+
+.week {
+    width: 40px;
+}
+
+.month {
+    width: 80px;
+}
+
+.aqi-chart-wrap .data {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    
+}
