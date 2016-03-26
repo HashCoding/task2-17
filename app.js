@@ -45,15 +45,15 @@
     }
 
     var aqiSourceData = {
-    "北京": randomBuildData(500),
-    "上海": randomBuildData(300),
-    "广州": randomBuildData(200),
-    "深圳": randomBuildData(100),
-    "成都": randomBuildData(300),
-    "西安": randomBuildData(500),
-    "福州": randomBuildData(100),
-    "厦门": randomBuildData(100),
-    "沈阳": randomBuildData(500)
+        "北京": randomBuildData(500),
+        "上海": randomBuildData(300),
+        "广州": randomBuildData(200),
+        "深圳": randomBuildData(100),
+        "成都": randomBuildData(300),
+        "西安": randomBuildData(500),
+        "福州": randomBuildData(100),
+        "厦门": randomBuildData(100),
+        "沈阳": randomBuildData(500)
     };
 
     /**
@@ -193,6 +193,7 @@
         
         console.log(pageState)
         
+        console.log(aqiSourceData[nowSelectCity])
         // 将原始的源数据处理成图表需要的数据格式
         // 处理好的数据存到 chartData 中
         if(nowGraTime === 'day') {
@@ -200,11 +201,32 @@
              // {2016-01-01: 1, 2016-01-02: 2....}
             // console.log(chartData);
         } else if(nowGraTime === 'week') {
-            // 好难，先等等
+            
+            chartData = {};
             var tepData = aqiSourceData[nowSelectCity];
-            for (var i in tepData) {
-                
+            // flag 代表当前的周数
+            var count = 0, total = 0, flag = 1;
+
+            for (var day in tepData) {
+                if((new Date(day)).getDay() === 1) {
+                    // 存储上周的情况
+                    chartData[flag + '周'] = Math.round(total/count);
+                    
+                    // 新的一周
+                    flag += 1;
+                    
+                    count = 1;
+                    total = tepData[day];
+                } else {
+                    count ++;
+                    total += tepData[day];
+                }
             }
+            
+            // 存储最后一周的数据
+            chartData[flag + '周'] = Math.round(total/count);
+            
+            console.log(chartData);
         } else if(nowGraTime === 'month') {
             chartData = {};
             var tepData = aqiSourceData[nowSelectCity];
