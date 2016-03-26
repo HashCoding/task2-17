@@ -43,6 +43,17 @@
         }
         return returnData;
     }
+    // 生成随机颜色
+    function randomColor() {
+        var colorArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+        
+        var color = '#';
+        for(var i = 0; i < 6; i++) {
+            color += colorArray[Math.round(Math.random() * 15)];    
+        }
+        
+        return color;
+    }
 
     var aqiSourceData = {
         "北京": randomBuildData(500),
@@ -96,8 +107,10 @@
         
         var str = '';
         for(var i in chartData) {
+            var nowColor = randomColor();
+            
             str += '<div class="box ' + pageState.nowGraTime + '">';
-            str += '<div class="data" style="height: ' + chartData[i] + 'px" title="' + i + ',' + chartData[i] + '"></div>';
+            str += '<div class="data" style="height: ' + chartData[i] + 'px; background-color:' + nowColor +'"; title="' + i + ',' + chartData[i] + '"></div>';
             str += '</div></div>';
         }
         
