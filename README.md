@@ -6,4 +6,4 @@
 
 ## Screenshot
 
-[!Screenshot](./res/screenshot.png)
+![Screenshot](./res/screenshot.png)
