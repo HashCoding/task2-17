@@ -69,6 +69,14 @@
         }
     }
     
+    /**
+     * 获取当前选择的城市
+     */
+    
+     var getCitySelect = function () {
+         return document.getElementById('city-select').value;
+     }
+     
     // 用于渲染图表的数据
     // {2016-01-01: 1, 2016-01-02: 2....}
     // {1月: 231, 2月: 303, 3月: 200...}
@@ -120,11 +128,20 @@
      * select发生变化时的处理函数
      */
     function citySelectChange() {
-    // 确定是否选项发生了变化 
-
-    // 设置对应数据
-
-    // 调用图表渲染函数
+        console.log('city select is changed')
+        
+        // 确定是否选项发生了变化 
+        var nowCitySelect = getCitySelect();
+        console.log('now city ' + nowCitySelect + ' is checked');
+        if(nowCitySelect === pageState.nowSelectCity) {
+            return;
+        } else {
+            // 设置对应数据
+            initAqiChartData();
+            // 调用图表渲染函数
+            renderChart();
+            
+        }       
     }
 
     /**
@@ -145,9 +162,19 @@
      * 初始化城市Select下拉选择框中的选项
      */
     function initCitySelector() {
-    // 读取aqiSourceData中的城市，然后设置id为city-select的下拉列表中的选项
-
-    // 给select设置事件，当选项发生变化时调用函数citySelectChange
+        // 读取aqiSourceData中的城市，然后设置id为city-select的下拉列表中的选项
+        var citySelectNode = document.getElementById('city-select');
+        
+        var str = '';
+        for (var citySelect in aqiSourceData) {
+            str += '<option>' + citySelect + '</option>'
+        } 
+        
+        citySelectNode.innerHTML = str;
+        
+        
+        // 给select设置事件，当选项发生变化时调用函数citySelectChange
+        _.addHandle(citySelectNode, 'click', citySelectChange);
 
     }
 
